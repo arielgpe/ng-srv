@@ -1,0 +1,40 @@
+angular.module('<%= moduleName %>', ['ngResource'])
+
+.constant('BASE_URL', '<%= urlBase %>')
+<% models.forEach(function(model){ %>
+.factory('<%= model.method %>', function($resource, BASE_URL){
+    return $resource(null, null, {
+        findAll: {
+            url: BASE_URL + '<%= model.url %>',
+            method: 'GET',
+            isArray: true
+        },
+        findById: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'GET',
+            params: {
+                id: '@id'
+            }
+        },
+        create: {
+            url: BASE_URL + '<%= model.url %>',
+            method: 'POST'
+        },
+        update: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'PUT',
+            params: {
+                id: '@id'
+            }
+        },
+        delete: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'DELETE',
+            params: {
+                id: '@id'
+            }
+        }
+    });
+})
+<%});%>
+

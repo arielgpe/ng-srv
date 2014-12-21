@@ -1,0 +1,17 @@
+{
+  "name": "ng-srv",
+  "version": "0.8.0",
+  "description": "A simple command-line tool for creating Angular.js modules based on restful resources",
+  "author": "Ariel Guzman",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "commander": "^2.5.1",
+    "ejs": "^1.0.0"
+  },
+  "bin": {
+    "ng-srv": "main.js"
+  }
+}

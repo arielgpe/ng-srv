@@ -1,0 +1,88 @@
+angular.module('<%= moduleName %>', ['ngResource'])
+
+.constant('BASE_URL', '<%= urlBase %>')
+
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('ngSrvInterceptor');
+})
+
+.factory('ngSrvInterceptor', function($q, $window, $injector) {
+    return {
+        'request': function(config) {
+            var $http = $injector.get("$http");
+            $http.defaults.headers.common.Authorization = 'Basic '+$window.localStorage['tokenId'];
+            return config;
+        }
+    };
+})
+
+.factory('Auth', function($resource, BASE_URL) {
+    return $resource(null, null, {
+        login: {
+            url: BASE_URL + 'users/login',
+            method: 'POST',
+            params: {
+                include: 'user'
+            },
+            interceptor: {
+                response: function(response){
+                    $window.localStorage['tokenId'] = response.id;
+                    return response.resource;
+                }
+            }
+        },
+        logout: {
+            url: BASE_URL + 'users/logout',
+            method: 'POST',
+            interceptor: {
+                response: function(response){
+                    $window.localStorage['tokenId'] = '';
+                    return response.resource;
+                }
+            }
+
+        },
+        create: {
+            url: BASE_URL + 'users',
+            method: 'POST'
+        }
+    });
+})
+
+<% models.forEach(function(model){ %>
+.factory('<%= model.method %>', function($resource, BASE_URL){
+    return $resource(null, null, {
+        findAll: {
+            url: BASE_URL + '<%= model.url %>',
+            method: 'GET',
+            isArray: true
+        },
+        findById: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'GET',
+            params: {
+                id: '@id'
+            }
+        },
+        create: {
+            url: BASE_URL + '<%= model.url %>',
+            method: 'POST'
+        },
+        update: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'PUT',
+            params: {
+                id: '@id'
+            }
+        },
+        delete: {
+            url: BASE_URL + '<%= model.url %>/:id',
+            method: 'DELETE',
+            params: {
+                id: '@id'
+            }
+        }
+    });
+})
+<%});%>
+
