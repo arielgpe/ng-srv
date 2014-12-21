@@ -3,13 +3,15 @@ ngSrv Documentation
 
 A simple command-line tool for creating Angular.js modules based on restful resources
 
-Installation
+Installation:
 ------------
 
     $ npm install -g ng-srv
 
-Usage: ng-srv [-OPTIONS] <filename>
------------------------------------
+Usage:
+------
+    $ ng-srv [-OPTIONS] <filename>
+
 Options:
 --------
     -h, --help             output usage information
