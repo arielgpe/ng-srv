@@ -29,7 +29,7 @@ var rl = readline.createInterface({
 });
 
 program
-    .version('0.8.0')
+    .version('0.8.1')
     .usage('[-OPTIONS] <filename>')
     .option('-a, --auth <filename>', 'create the resource file with a default auth factory')
     .parse(process.argv);
@@ -37,8 +37,10 @@ program
 
 if (program.auth){
     filename = program.auth + '.js'
-} else {
+} else if (program.args.length > 0){
     filename = program.args + '.js'
+} else {
+    program.help();
 }
 console.log(chalk.cyan.bold('Filename: ' + filename));
 rl.question("Pick a module name (press enter for default: ngSrv): ", function(name){
