@@ -40,6 +40,11 @@ e.g.
 
 Once you are done, press the return key or enter 'exit' to finish.
 
+Report an Issue:
+----------------
+Got any problems? want to see a new feature?
+you can create an issue on [github](https://github.com/arielgpe/ng-srv/issues)
+
 
 Authors:
 -------

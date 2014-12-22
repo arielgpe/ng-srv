@@ -29,7 +29,7 @@ var rl = readline.createInterface({
 });
 
 program
-    .version('0.8.1')
+    .version('0.8.2')
     .usage('[-OPTIONS] <filename>')
     .option('-a, --auth <filename>', 'create the resource file with a default auth factory')
     .parse(process.argv);
